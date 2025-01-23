@@ -1,0 +1,70 @@
+{% block content %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <title>AIRLINE</title>
+    <link rel="stylesheet" href="static/css/style.css">
+ <link rel="icon" href="static/images/planes.png">
+
+</head>
+<body>
+    {% load static %}
+    <div class="header">
+    <div class="container">
+    <div class="navbar">
+        <div class="logo">
+           </div>
+        <nav>
+            <ul  id="MenuItems">
+                <li><a href="{%url 'home' %}">HOME</a></li>
+                <li><a href="{%url 'findflight'%}">FIND FLIGHT</a></li>
+                <li><a href="{%url 'seebookings'%}">YOUR BOOKINGS</a></li>
+                <li><a href="{%url 'contact'%}">CONTACT</a></li>
+                <li><a href="{%url 'signin'%}">LOGIN</a></li>
+                <li><a href="{%url 'signout'%}">LOGOUT</a></li>
+                <li><a href="{%url 'signup'%}">SIGNIN</a></li>
+          </ul>
+        </nav>
+     <img src="static/images/menu.jpg" class="menu-icon" onclick="menutoggle()">
+     </div>
+     </div>
+     </div>
+    <div class="small-container">
+        <div class="row">
+             <div class="col">
+               <h1 class="title">SIGN IN</h1>
+                    <form action="signup" method="POST">
+                    {% csrf_token %}
+                    <div class="inputBox">
+                        <span>Username</span>
+                        <input type="text" name='name'autofocus required>
+                     </div>
+                    <div class="inputBox">
+                        <span>Email</span>
+                        <input type="email"  name='email'autofocus required>
+                    </div>
+                    <div class="inputBox">
+                        <span>Password</span>
+                        <input type="password"  name='password'autofocus required>
+                    </div>
+                       <button type="submit" class="btn ">SIGN IN</button>
+               </form>
+            </div>
+            </div>
+</div>
+<script>
+        var MenuItems = document.getElementById("MenuItems")
+        MenuItems.style.maxHeight="0px";
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px"){
+                MenuItems.style.maxHeight ="200px";
+            }
+            else{
+                MenuItems.style.maxHeight ="0px";
+            }
+            }
+        </script>
+</body>
+</html>
+{% endblock %}

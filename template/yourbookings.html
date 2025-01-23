@@ -1,0 +1,96 @@
+{% block content %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <title>AIRLINE</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="icon" href="static/images/planes.png">
+    {% load static %}
+</head>
+<body>
+    <div class="header">
+    <div class="container">
+    <div class="navbar">
+        <div class="logo">
+           </div>
+        <nav>
+            <ul  id="MenuItems">
+                <li><a href="{%url 'home' %}">HOME</a></li>
+                <li><a href="{%url 'findflight'%}">FIND FLIGHT</a></li>
+                <li><a href="{%url 'seebookings'%}">YOUR BOOKINGS</a></li>
+                <li><a href="{%url 'contact'%}">CONTACT</a></li>
+                <li><a href="{%url 'signin'%}">LOGIN</a></li>
+                <li><a href="{%url 'signout'%}">LOGOUT</a></li>
+                <li><a href="{%url 'signup'%}">SIGN IN</a></li>
+          
+            </ul>
+        </nav>
+     <img src="static/images/menu.jpg" class="menu-icon" onclick="menutoggle()">
+     </div>
+     </div>
+     </div>
+     <div class="small-container">
+        <h3>{{msg}}</h3>
+        <h1 style="text-align: center;">YOUR BOOKINGS</h1><br>
+      <table>
+          <thead style="background-color: rgb(0, 0, 255);color: white;font-weight: bold;" >
+              <td>ID</td>
+              <td>NAME</td>
+              <td>SOURCE</td>
+              <td>DESTINATION</td>
+              <td>NUM OF SEATS</td>
+              <td>PRICE</td>
+              <td>DATE</td>
+              <td>TIME</td>
+              <td>STATUS</td>
+          </thead>
+          {% for row in book_list %}
+          <tr>
+              <td>{{row.id }}</td>
+              <td>{{row.flight_name}}</td>
+              <td>{{row.source}}</td>
+              <td>{{row.dest}}</td>
+              <td>{{row.nos}}</td>
+              <td>{{row.price}}</td>
+              <td>{{row.date}}</td>
+              <td>{{row.time}}</td>
+              <td>{{row.status}}</td> 
+     </tr>
+          {% endfor %}
+       </table>
+    
+</div>
+<div class="small-container">
+        <div class="row">
+            <div class="col">
+            <form action="{%url 'cancellings' %}" method="POST">
+               <h1 class="title">CANCEL THE FLIGHT</h1>
+               {% csrf_token %}
+               <div class="inputBox">
+                   <span>Flightid</span>
+                   <input type="number"  name='flight_id' autofocus required>
+               </div>
+               <div class="inputBox">
+                   <button type="submit" class="btn ">cancel</button>
+               </div>
+           </div>
+        </div>
+        {{error}}
+    </form>
+ </div>
+      <script>
+        var MenuItems = document.getElementById("MenuItems")
+        MenuItems.style.maxHeight="0px";
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px"){
+                MenuItems.style.maxHeight ="200px";
+            }
+            else{
+                MenuItems.style.maxHeight ="0px";
+            }
+            }
+        </script>
+</body>
+</html>
+{% endblock %}
